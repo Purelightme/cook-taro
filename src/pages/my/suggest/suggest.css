@@ -1,0 +1,17 @@
+.right{
+    text-align: right;
+}
+
+.left{
+    text-align: left;
+}
+
+.conversation{
+    border: 2px solid #ee735c;
+    margin-bottom: 20px;
+    background-color: antiquewhite;
+}
+
+.submit{
+    margin-top: 10px;
+}

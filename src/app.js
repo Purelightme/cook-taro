@@ -18,11 +18,12 @@ class App extends Component {
         'pages/cook/cook',
         'pages/detail/detail',
         'pages/search/search',
+        'pages/my/suggest/suggest',
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: '点外卖不如做菜',
       navigationBarTextStyle: 'black'
     }
   }

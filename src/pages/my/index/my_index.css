@@ -1,0 +1,5 @@
+.header{
+    flex: 1;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
