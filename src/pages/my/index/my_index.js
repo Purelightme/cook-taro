@@ -1,29 +1,58 @@
 import Taro, {Component} from '@tarojs/taro'
 import {AtButton, AtAvatar, AtList, AtListItem,} from 'taro-ui'
 import {View, Text,} from '@tarojs/components'
+import {storeUserInfo, getUserInfo} from '../../../storage/index'
 
 import './my_index.css'
+import {host} from "../../../utils/cook";
 
 export default class MyIndex extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isLogin: true
+            isLogin: false
         }
     }
 
     login(e) {
         console.log(e)
+        Taro.login({
+            success(res) {
+                console.log(res)
+                let code = res.code
+                Taro.request({
+                    url: host + '/user/auth/login',
+                    method: 'POST',
+                    data: {
+                        code: code,
+                        iv: e.detail.iv,
+                        rowData: e.detail.encryptedData
+                    }
+                })
+                    .then((res) => {
+                        console.log(res.data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            }
+        })
     }
 
-    toSuggest(){
+    toSuggest() {
         Taro.navigateTo({
-            url:'/pages/my/suggest/suggest'
+            url: '/pages/my/suggest/suggest'
         })
     }
 
     render() {
+        let user = getUserInfo()
+        if (user) {
+            this.setState({
+                isLogin: true
+            })
+        }
         if (this.state.isLogin === false) {
             return (
                 <AtButton

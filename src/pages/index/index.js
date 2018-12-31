@@ -4,6 +4,7 @@ import {AtSearchBar, AtTabBar} from 'taro-ui'
 import Category from '../../components/category/category'
 import SearchBar from '../../components/search-bar/search-bar'
 import MyIndex from '../my/index/my_index'
+import Explore from '../explore/explore'
 
 export default class Index extends Component {
 
@@ -41,9 +42,7 @@ export default class Index extends Component {
             )
         } else if (this.state.current === 1) {
             content = (
-                <View>
-                    <Text>{'发现'}</Text>
-                </View>
+                <Explore/>
             )
         } else {
             content = (
