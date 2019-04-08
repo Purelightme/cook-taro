@@ -1,3 +1,17 @@
 .red{
     color: #ee735c;
 }
+
+.title{
+    color: #ee735c;
+}
+
+.refresh{
+    display: flex;
+    justify-content: center;
+}
+
+.cook-item {
+    margin-bottom: 10px;
+    margin-top: 20px;
+}

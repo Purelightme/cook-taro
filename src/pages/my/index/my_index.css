@@ -1,5 +1,22 @@
-.header{
+
+.avatar{
     flex: 1;
-    flex-direction: column;
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-img{
+    min-width: 240px;
+}
+
+.nickname{
+    flex: 1;
+    height: 240px;
+    line-height: 240px;
+    text-align: left;
+}
+
+.header{
+    margin-bottom: 20px;
 }

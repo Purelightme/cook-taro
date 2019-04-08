@@ -5,6 +5,7 @@ import Category from '../../components/category/category'
 import SearchBar from '../../components/search-bar/search-bar'
 import MyIndex from '../my/index/my_index'
 import Explore from '../explore/explore'
+import './index.css'
 
 export default class Index extends Component {
 
@@ -12,6 +13,14 @@ export default class Index extends Component {
         super(props);
         this.state = {
             current: 0
+        }
+    }
+
+    componentWillMount(){
+        if (this.$router.params.index){
+            this.setState({
+                current:this.$router.params.index
+            })
         }
     }
 
@@ -33,7 +42,7 @@ export default class Index extends Component {
         let content;
         if (this.state.current === 0) {
             content = (
-                <View>
+                <View className='content'>
                     <SearchBar
                         onConfirm={this.search}
                     />

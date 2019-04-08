@@ -1,8 +1,10 @@
 import Taro, {Component} from '@tarojs/taro'
 import {View, Text, Textarea} from '@tarojs/components'
-import {AtTextarea, AtButton,} from 'taro-ui'
+import {AtButton,} from 'taro-ui'
 
 import './suggest.css'
+import {getUserInfo} from "../../../storage/index";
+import {host} from "../../../utils/cook";
 
 export default class Suggest extends Component {
 
@@ -10,50 +12,77 @@ export default class Suggest extends Component {
         super(props);
         this.state = {
             content: '',
-            suggests: [
-                {
-                    'content': '可以添加搜索菜谱的功能吗？',
-                    'response': '谢谢反馈，明天发布新版本，新增菜谱搜索'
-                },
-                {
-                    'content': '作者是做什么的？感觉666啊',
-                    'response': '哈哈，程序员一枚，业余时间做这个玩玩'
-                },
-            ]
         }
     }
 
-    onChange(content) {
+    onChange(e) {
         this.setState({
-            content
+            content: e.detail.value
         })
     }
 
     submit() {
-        console.log(this.state.content)
+        let user = getUserInfo()
+        console.log(user)
+        if (!user) {
+            Taro.showToast({
+                title: '请先登录',
+                icon:'none'
+            })
+        }
+        if (!this.state.content){
+            Taro.showToast({
+                title:'请先填写内容',
+                icon:'none'
+            })
+            return;
+        }
+        Taro.request({
+            url: host + '/user/suggests',
+            method: 'POST',
+            header: {
+                'Authorization': 'Bearer '+user.access_token
+            },
+            data:{
+                content:this.state.content
+            }
+        })
+            .then((res) => {
+                if ((res.data.errcode === 0)){
+                    this.setState({
+                        content:''
+                    })
+                    Taro.showToast({
+                        title:'留言成功'
+                    })
+                    setTimeout(function(){
+                        Taro.navigateTo({
+                            // url:'/pages/index/index?index=2'
+                            url:'/pages/my/suglist/suglist'
+                        })
+                    },2000)
+                }else {
+                    Taro.showToast({
+                        title:res.data.errmsg
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     render() {
 
-        const conversation = this.state.suggests.map((item) => {
-            return (
-                <View>
-                    <View className='right'><Text >{item.content}</Text></View>
-                    <View className='left'><Text>{item.response}</Text></View>
-                </View>
-            )
-        });
 
         return (
             <View>
-                <View className={'conversation'}>
-                    {conversation}
-                </View>
-                <AtTextarea
+                <Textarea
+                    className='content'
                     value={this.state.content}
-                    onChange={this.onChange.bind(this)}
+                    onInput={this.onChange.bind(this)}
                     placeholder={'发表你的想法...'}
-                    maxLength={300}
+                    maxlength={2000}
                 />
                 <AtButton
                     className={'submit'}

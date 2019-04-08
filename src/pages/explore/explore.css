@@ -1,0 +1,27 @@
+.content {
+    display: inline-block;
+    background: #fff;
+    width: 100%;
+    min-height: 80px;
+    padding: 0 30px;
+    border: 1px solid aqua;
+}
+.send{
+    position: absolute;
+    bottom: 40px;
+    display: inline-block;
+}
+
+.avatar{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+}
+
+.msg{
+    background-color: cornsilk;
+    border: 1px solid cornflowerblue;
+    border-radius: 2px;
+    line-height: 30px;
+
+}

@@ -15,3 +15,12 @@
 .submit{
     margin-top: 10px;
 }
+
+.content{
+    display: inline-block;
+    border: 2px solid antiquewhite;
+    background:#fff;
+    width:100%;
+    min-height:80px;
+    padding:0 30px;
+}
